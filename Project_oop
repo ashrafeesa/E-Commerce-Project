@@ -1,0 +1,91 @@
+package com.mycompany.project_oop;
+import javax.swing.JOptionPane;
+
+public class Project_oop {
+
+    public static void main(String[] args) {
+
+        ElectronicProduct e_1 = new ElectronicProduct(1, "Smartphone", 599.99f, "Samsung", 1);
+        ClothingProduct c_1 = new ClothingProduct(2, "T-Shirt", 19.99f, "Medium", "Cotton");
+        BookProduct b_1 = new BookProduct(3, "OOP", 39.99f, "O_Reilly", "X Publications");
+
+        int customerId =Integer.parseInt(JOptionPane.showInputDialog("Enter your ID: "));
+        
+        String name =JOptionPane.showInputDialog("Enter your name : ");
+    
+        String address =JOptionPane.showInputDialog("Enter your address : ");
+                
+        Customer cu_1=new Customer(customerId,name,address);
+        
+        int nProducts  =Integer.parseInt(JOptionPane.showInputDialog(" Enter the number of products in your cart: "));
+    
+        Cart cart = new Cart(customerId, nProducts);
+        
+        product product = null;
+
+        for (int i = 0; i < nProducts; i++) {
+
+            int productId=Integer.parseInt(JOptionPane.showInputDialog("  Which product would you like to add ? ( 1 - Smartphone, 2 - T-Shirt, 3 - OOP): "));
+
+            switch (productId) {
+                case 1:
+                    product=e_1;
+                    break;
+                case 2:
+                    product=c_1;
+                    break;
+                case 3:
+                    product=b_1;
+                    break;
+                default:
+                    
+                    JOptionPane.showMessageDialog(null, "Invalid product type.");
+                    break;
+            }
+
+            if (product != null) {
+                cart.addProduct(product, i);
+            }
+        }
+        int f=Integer.parseInt(JOptionPane.showInputDialog("  do you want add or remove any product? \\n 1- add \\n 2-remove \\n 3-none "));
+
+        while(f!=3){
+            switch(f){
+                
+                case 1 :
+                    int nadd=Integer.parseInt(JOptionPane.showInputDialog(" How many product you want to add? "));
+                    for (int i=0;i<nadd;i++){
+                           int productId =Integer.parseInt(JOptionPane.showInputDialog("Which product you want to add (1 - Smartphone, 2 - T-Shirt, 3 - OOP):"));
+                          cart.addProduct(product, i);
+                    }
+                    break;
+                    
+                case 2 :
+                    int nremove=Integer.parseInt(JOptionPane.showInputDialog("How many product you want to remove ?"));
+                    for (int i=0;i<nremove;i++){
+                          int productId =Integer.parseInt(JOptionPane.showInputDialog("Which product you want to remove (1 - Smartphone, 2 - T-Shirt, 3 - OOP):"));
+                          cart.removeProduct(i);
+                    }
+                    break;
+                case 3 : 
+                    break;
+                
+                default :
+                    JOptionPane.showMessageDialog(null,"invalid input ");
+            }
+             JOptionPane.showMessageDialog(null," Total Price: $" + cart.calculatePrice());
+             f = Integer.parseInt(JOptionPane.showInputDialog("do you want add or remove any product? \n 1- add \n 2-remove \n 3-none "));
+        }
+        int o= Integer.parseInt(JOptionPane.showInputDialog("Do you want to place an order for the products in the cart? (1-yes/2-no)"));
+        if(o==1){
+        cart.placeOrder();
+        }
+        else{
+         JOptionPane.showMessageDialog(null,"OK.bye");
+                
+        }
+
+    }
+}
+
+

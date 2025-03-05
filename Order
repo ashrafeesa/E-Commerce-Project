@@ -1,0 +1,33 @@
+package com.mycompany.project_oop;
+import javax.swing.JOptionPane;
+
+public class Order {
+    private int customerId;
+    private int orderId;
+    private product[] products;
+    private  float totalPrice;
+    
+    public Order(int customerId, product[] products) {
+        this.customerId = Math.abs(customerId); 
+        orderId = 1; 
+        this.products = products;
+        this.totalPrice = calculateTotalPrice();
+    }
+    private  float calculateTotalPrice() {
+         float totalPrice = 0;
+        for (product product : products) {
+            totalPrice += product.getPrice();
+        }
+        return totalPrice;
+    }
+    public void printOrderInfo() {
+        JOptionPane.showMessageDialog(null, "Here's your order's summary");
+        JOptionPane.showMessageDialog(null, "Customer ID: " + customerId);
+        JOptionPane.showMessageDialog(null, "Order ID: " + orderId);
+        JOptionPane.showMessageDialog(null, "Products:");
+        for (product product : products) {
+            JOptionPane.showMessageDialog(null,"- " + product.getName() + ", Price: $" + product.getPrice());
+        }
+       JOptionPane.showMessageDialog(null,"- "+"Total Price: $" + totalPrice);
+    }
+}
